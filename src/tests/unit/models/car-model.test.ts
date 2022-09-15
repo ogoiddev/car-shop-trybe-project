@@ -9,6 +9,11 @@ const { expect } = chai;
 describe('Mongo model', () => {
   const carModel = new Car()
 
+  after(()=>{
+    sinon.restore();
+  })
+
+
   it('Create function should be called with success return', async () => {
     sinon.stub(Model, 'create').resolves(ICarMock);
     const result = await carModel.create(ICarDTOMock)

@@ -1,19 +1,21 @@
 import chai from 'chai';
 import { Model } from 'mongoose';
 import * as sinon from 'sinon';
-import { ICar } from '../../../interfaces/ICar';
 import Car from '../../../models/CarModel';
-import Service from '../../../services/CarServices/Service';
-import { ICarDTOMock, ICarWrongDTOMock } from '../../mocks/ICarDTOMock';
-import { ICarMock } from '../../mocks/ICarMock';
-import { IModel } from '../../../interfaces/IModel';
 import { ICarDTO } from '../../../services/CarServices/ICarDTO';
-import { ZodError } from 'zod';
+import Service from '../../../services/CarServices/Service';
+import { ICarDTOMock } from '../../mocks/ICarDTOMock';
+import { ICarMock } from '../../mocks/ICarMock';
 const { expect } = chai;
 
 describe('Api service', () => {
   const carModel = new Car()
   const carService = new Service(carModel)
+
+  after(()=>{
+    sinon.restore();
+  })
+
 
   it('Create function should be called with success return', async () => {
     sinon.stub(Model, 'create').resolves(ICarMock);

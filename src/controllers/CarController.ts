@@ -10,8 +10,14 @@ export default class CarController {
     res.status(201).json(results);
   };
 
-  public getCarsList = async (req: Request, res: Response) => {
+  public getCarsList = async (_req: Request, res: Response) => {
     const results = await this.service.getCarsList();
     res.status(200).json(results);
+  };
+
+  public getCarById = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result = await this.service.getCarById(id);
+    res.status(200).json(result);
   };
 }

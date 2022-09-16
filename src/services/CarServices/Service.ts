@@ -1,3 +1,5 @@
+import { isValidObjectId } from 'mongoose';
+import { ErrorTypes } from '../../errors/catalog';
 import { ICar, CarZodSchema } from '../../interfaces/ICar';
 import { IModel } from '../../interfaces/IModel';
 import { ICarDTO } from './ICarDTO';
@@ -17,7 +19,17 @@ export default class Service {
   }
 
   public async getCarsList() {
-    const results = this.carModel.read();
+    const results = await this.carModel.read();
     return results;
+  }
+
+  public async getCarById(id: string) {
+    if (!isValidObjectId(id)) throw Error(ErrorTypes.InvalidMongoId);
+    
+    const result = await this.carModel.readOne(id);
+
+    if (!result) throw Error(ErrorTypes.EntityNotFound);
+    
+    return result;
   }
 }

@@ -15,4 +15,9 @@ export default class Service {
     const results = await this.carModel.create(objectCar);
     return results;
   }
+
+  public async getCarsList() {
+    const results = this.carModel.read();
+    return results;
+  }
 }

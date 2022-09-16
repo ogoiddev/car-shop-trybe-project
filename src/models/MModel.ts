@@ -2,7 +2,7 @@ import { isValidObjectId, Model, UpdateQuery } from 'mongoose';
 import { ErrorTypes } from '../errors/catalog';
 import { IModel } from '../interfaces/IModel';
 
-abstract class MongoModel<T> implements IModel<T> {
+abstract class MModel<T> implements IModel<T> {
   constructor(private model: Model<T>) { }
 
   async read(): Promise<T[]> {
@@ -36,4 +36,4 @@ abstract class MongoModel<T> implements IModel<T> {
   }
 }
 
-export default MongoModel;
+export default MModel;

@@ -1,5 +1,4 @@
-import { isValidObjectId, Model, UpdateQuery } from 'mongoose';
-import { ErrorTypes } from '../errors/catalog';
+import { Model, UpdateQuery } from 'mongoose';
 import { IModel } from '../interfaces/IModel';
 
 abstract class MModel<T> implements IModel<T> {
@@ -25,9 +24,7 @@ abstract class MModel<T> implements IModel<T> {
     return results;
   }
 
-  public async update(_id:string, obj:Partial<T>):Promise<T | null> {
-    if (!isValidObjectId(_id)) throw Error(ErrorTypes.InvalidMongoId);
-    
+  public async update(_id:string, obj:Partial<T>):Promise<T | null> {    
     return this.model.findByIdAndUpdate(
       { _id },
       { ...obj } as UpdateQuery<T>,

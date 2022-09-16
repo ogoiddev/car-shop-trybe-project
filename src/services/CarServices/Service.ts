@@ -10,9 +10,7 @@ export default class Service {
   public async saveNewCar(objectCar: ICarDTO) {
     const parseSuccess = CarZodSchema.safeParse(objectCar);
     
-    if (!parseSuccess.success) {
-      throw parseSuccess.error;
-    }
+    if (!parseSuccess.success) throw parseSuccess.error;
 
     const results = await this.carModel.create(objectCar);
     return results;
@@ -30,6 +28,19 @@ export default class Service {
 
     if (!result) throw Error(ErrorTypes.EntityNotFound);
     
+    return result;
+  }
+
+  public async updateCar(id: string, objectCar: ICarDTO) {
+    if (!isValidObjectId(id)) throw Error(ErrorTypes.InvalidMongoId);
+
+    const parseSuccess = CarZodSchema.safeParse(objectCar);
+    if (!parseSuccess.success) throw parseSuccess.error;
+
+    const result = await this.carModel.update(id, objectCar);
+
+    if (!result) throw Error(ErrorTypes.EntityNotFound);
+
     return result;
   }
 }

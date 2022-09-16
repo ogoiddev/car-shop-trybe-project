@@ -13,13 +13,13 @@ describe('Api controller', () => {
   const carModel = new Car()
   const carService = new Service(carModel)
   const carController = new CarController(carService)
-
-  after(()=>{
+  let req = {} as Request;
+  let res = {} as Response;
+  
+  afterEach(() => {
     sinon.restore();
   })
   
-  const req = {} as Request;
-  const res = {} as Response;
 
   it('Create function should be called with success return', async () => {
     sinon.stub(Model, 'create').resolves(ICarMock);
@@ -32,7 +32,32 @@ describe('Api controller', () => {
     
     expect((res.status as sinon.SinonStub).calledWith(201)).to.be.true;
 
-    sinon.restore();
+  });
+
+  it('Read function should be called with success return', async () => {
+    sinon.stub(Model, 'find').resolves([]);
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns(res);
+    req.body = []
+    
+    await carController.getCarsList(req, res)
+    
+    expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+
+  });
+
+  it('ReadOne function should be called with success return', async () => {
+    sinon.stub(Model, 'findOne').resolves(ICarMock);
+
+    res.status = sinon.stub().returns(res);
+    res.json = sinon.stub().returns(res);
+    req.params = { id: "632383aaea59c2b5dc96346b" }
+    
+    await carController.getCarById(req, res)
+    
+    expect((res.status as sinon.SinonStub).calledWith(200)).to.be.true;
+
   });
 
   // it('Create function should be called with ERROR return', async () => {

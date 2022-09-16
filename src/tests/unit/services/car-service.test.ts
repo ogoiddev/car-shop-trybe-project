@@ -35,21 +35,43 @@ describe('Api service', () => {
     sinon.restore();
   });
 
-  // it('Read function should be called with success return', async () => {
-  //   sinon.stub(Model, 'find').resolves([]);
-  //   const result = await carModel.read()
-  //   expect(result).to.be.a('array')
+  it('Read function should be called with success return', async () => {
+    sinon.stub(Model, 'find').resolves([]);
+    const result = await carService.getCarsList()
+    expect(result).to.be.a('array')
 
-  //   sinon.restore();
-  // });
+    sinon.restore();
+  });
 
-  // it('ReadOne function should be called with success return', async () => {
-  //   sinon.stub(Model, 'findOne').resolves(ICarMock);
-  //   const result = await carModel.readOne("carName")
-  //   expect(result).to.be.deep.equal(ICarMock)
+  it('ReadOne function should be called with success return', async () => {
+    sinon.stub(Model, 'findOne').resolves(ICarMock);
+    const result = await carService.getCarById("632383aaea59c2b5dc96346b")
+    expect(result).to.be.deep.equal(ICarMock)
 
-  //   sinon.restore();
-  // });
+    sinon.restore();
+  });
+
+  it('ReadOne function should be called with ERROR return - WRONG_CHAR_HEXADECIMAL ID CASE', async () => {
+    try {
+      await carService.getCarById("wrong")
+    } catch(err) {
+      expect(err)
+    }
+    
+    sinon.restore();
+  });
+
+  it('ReadOne function should be called with ERROR return - NOT_FOUND ID CASE', async () => {
+    sinon.stub(Model, 'findOne').resolves(null);
+
+    try {
+      await carService.getCarById("623456789012345678901234")
+    } catch(err) {
+      expect(err)
+    }
+    
+    sinon.restore();
+  });
 
   // it('Update function should be called with success return', async () => {
   //   sinon.stub(Model, 'findByIdAndUpdate').resolves(ICarMock);

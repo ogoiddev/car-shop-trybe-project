@@ -3,7 +3,7 @@ import factory from '../factories';
 
 const motorcycleRoute = Router();
 
-motorcycleRoute.put('/:id', factory.motorcycleHandler.saveNewMotorcycle);
+motorcycleRoute.put('/:id', factory.motorcycleHandler.updateMotorcycle);
 motorcycleRoute.post('/', factory.motorcycleHandler.saveNewMotorcycle);
 
 motorcycleRoute.get('/:id', factory.motorcycleHandler.getMotorcycleById);

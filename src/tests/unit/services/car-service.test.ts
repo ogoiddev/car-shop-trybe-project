@@ -73,31 +73,31 @@ describe('Api service', () => {
     sinon.restore();
   });
 
-  // it('Update function should be called with success return', async () => {
-  //   sinon.stub(Model, 'findByIdAndUpdate').resolves(ICarMock);
-  //   const result = await carModel.update("632383aaea59c2b5dc96346b", ICarDTOMock)
-  //   expect(result).to.be.deep.equal(ICarMock)
+  it('Update function should be called with success return', async () => {
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(ICarMock);
+    const result = await carService.updateCar("632383aaea59c2b5dc96346b", ICarDTOMock)
+    expect(result).to.be.deep.equal(ICarMock)
 
-  //   sinon.restore();
-  // });
+    sinon.restore();
+  });
 
-  // it('Update function should be called with ERROR return', async () => {
-  //   sinon.stub(Model, 'findByIdAndUpdate').resolves(ICarMock);
-  //   try {
-  //     await carModel.update("2", ICarDTOMock)
-  //   } catch(err: any) {
-  //     expect(err.message).to.be.equal('InvalidMongoId')
-  //   }
+  it('Update function should be called with ERROR return', async () => {
+    sinon.stub(Model, 'findByIdAndUpdate').resolves(ICarMock);
+    try {
+      await carService.updateCar("2", ICarDTOMock)
+    } catch(err: any) {
+      expect(err.message).to.be.equal('InvalidMongoId')
+    }
 
-  //   sinon.restore();
-  // });
+    sinon.restore();
+  });
 
-  // it('Delete function should be called with success return', async () => {
-  //   sinon.stub(Model, 'findByIdAndDelete').resolves(ICarMock);
-  //   const result = await carModel.delete("632383aaea59c2b5dc96346b")
-  //   expect(result).to.be.deep.equal(ICarMock)
+  it('Delete function should be called with success return', async () => {
+    sinon.stub(Model, 'findByIdAndDelete').resolves(ICarMock);
+    const result = await carService.deleteCar("632383aaea59c2b5dc96346b")
+    expect(result).to.be.deep.equal(ICarMock)
 
-  //   sinon.restore();
-  // });
+    sinon.restore();
+  });
 
 });

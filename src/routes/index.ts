@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import carRoute from './carRoute';
+import carRoutes from './carRoutes';
+import motorcycleRoutes from './motorcycleRoutes';
 
 const Routes = Router();
 
-Routes.use(carRoute);
+Routes.use('/cars', carRoutes);
+Routes.use('/motorcycles', motorcycleRoutes);
 
 export default Routes;

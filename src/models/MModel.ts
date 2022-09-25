@@ -14,8 +14,8 @@ abstract class MModel<T> implements IModel<T> {
     return results;
   }
   
-  async delete(dataValue: string): Promise<T | null> {
-    const results = await this.model.findByIdAndDelete({ dataValue });
+  async delete(_id: string): Promise<T | null> {    
+    const results = await this.model.findByIdAndDelete({ _id });
     return results;
   }
 

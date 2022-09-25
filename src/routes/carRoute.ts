@@ -9,4 +9,6 @@ carRoute.post('/cars', factory.carHandler.saveNewCar);
 carRoute.get('/cars/:id', factory.carHandler.getCarById);
 carRoute.get('/cars', factory.carHandler.getCarsList);
 
+carRoute.delete('/cars/:id', factory.carHandler.deleteCar);
+
 export default carRoute;

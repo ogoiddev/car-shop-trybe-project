@@ -43,4 +43,15 @@ export default class Service {
 
     return result;
   }
+
+  public async deleteCar(id: string) {
+    if (!isValidObjectId(id)) throw Error(ErrorTypes.InvalidMongoId);
+    
+    const result = await this.carModel.delete(id);  
+    console.log(result);
+
+    if (!result) throw Error(ErrorTypes.EntityNotFound);
+
+    return result;
+  }
 }
